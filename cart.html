@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Products - RedStore</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@300&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" width="125px">
+            </div>
+            <nav>
+                <ul id="menuItems">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="">Account</a></li>
+                </ul>
+            </nav>
+            <img src="images/cart.png" width="30px" height="30px">
+            <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
+        </div>
+    </div>
+
+<!-- ------------------------cart item details-------------------------- -->
+<div class="small-container cart-page">
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Subtotal</th>
+        </tr>
+        <tr>
+            <td>
+                <div class="cart-info">
+                    <img src="images/buy-1.jpg">
+                    <div>
+                        <p>Red Printed T-shirt</p>
+                        <small>Price: $50.00</small>
+                        <br>
+                        <button id="decBtn1" style="background-color: white; color: orangered; border: none;margin-right: 50px;" type="button">Remove</button>
+                        <button id="incBtn1" style="background-color: white; color: orangered; border: none;" type="button">Add</button>
+                    </div>
+                </div>
+            </td>
+            <td id="itemNum1">1</td>
+            <td id="itemTotal1">$50.00</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="cart-info">
+                    <img src="images/buy-2.jpg">
+                    <div>
+                        <p>Sports Shoes</p>
+                        <small>Price: $50.00</small>
+                        <br>
+                        <button id="decBtn2" style="background-color: white; color: orangered; border: none;margin-right: 50px;" type="button">Remove</button>
+                        <button id="incBtn2" style="background-color: white; color: orangered; border: none;" type="button">Add</button>
+                    </div>
+                </div>
+            </td>
+            <td id="itemNum2">1</td>
+            <td id="itemTotal2">$50.00</td>
+        </tr>
+        <tr>
+            <td>
+                <div class="cart-info">
+                    <img src="images/buy-3.jpg">
+                    <div>
+                        <p>Sweat Pants</p>
+                        <small>Price: $50.00</small>
+                        <br>
+                        <button id="decBtn3" style="background-color: white; color: orangered; border: none;margin-right: 50px;" type="button">Remove</button>
+                        <button id="incBtn3" style="background-color: white; color: orangered; border: none;" type="button">Add</button>
+                    </div>
+                </div>
+            </td>
+            <td id="itemNum3">1</td>
+            <td id="itemTotal3">$50.00</td>
+        </tr>
+    </table>
+
+    <div class="total-price">
+        <table>
+            <tr>
+                <td>Subtotal</td>
+                <td id="subtotal">$150.00</td>
+            </tr>
+            <tr>
+                <td>Shipping</td>
+                <td>$35.00</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td id="finalTotal">$185.00</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- ------------------------footer-------------------------- -->
+<div class="footer">
+    <div class="container">
+        <!-- Footer content here -->
+    </div>
+</div>
+
+<!-- ------------------------js for toggle menu-------------------------- -->
+<script>
+    function updateTotals() {
+        let subtotal = 0;
+        for (let i = 1; i <= 3; i++) {
+            let itemTotal = parseInt(document.getElementById(`itemTotal${i}`).innerText.replace('$', ''));
+            subtotal += itemTotal;
+        }
+        document.getElementById('subtotal').innerText = `$${subtotal}.00`;
+        document.getElementById('finalTotal').innerText = `$${subtotal + 35}.00`; // Assuming shipping is $35
+    }
+
+    function addValue(num) {
+        let itemCount = parseInt(document.getElementById(`itemNum${num}`).innerText);
+        let itemTotal = parseInt(document.getElementById(`itemTotal${num}`).innerText.replace('$', ''));
+
+        itemCount += 1;
+        itemTotal += 50;
+
+        document.getElementById(`itemNum${num}`).innerText = itemCount;
+        document.getElementById(`itemTotal${num}`).innerText = `$${itemTotal}.00`;
+        updateTotals();
+    }
+
+    function reduceValue(num) {
+        let itemCount = parseInt(document.getElementById(`itemNum${num}`).innerText);
+        let itemTotal = parseInt(document.getElementById(`itemTotal${num}`).innerText.replace('$', ''));
+
+        if (itemCount > 1) { // Prevent reducing below 1
+            itemCount -= 1;
+            itemTotal -= 50;
+        }
+
+        document.getElementById(`itemNum${num}`).innerText = itemCount;
+        document.getElementById(`itemTotal${num}`).innerText = `$${itemTotal}.00`;
+        updateTotals();
+    }
+
+    document.getElementById("incBtn1").addEventListener('click', () => addValue(1));
+    document.getElementById("decBtn1").addEventListener('click', () => reduceValue(1));
+
+    document.getElementById("incBtn2").addEventListener('click', () => addValue(2));
+    document.getElementById("decBtn2").addEventListener('click', () => reduceValue(2));
+
+    document.getElementById("incBtn3").addEventListener('click', () => addValue(3));
+    document.getElementById("decBtn3").addEventListener('click', () => reduceValue(3));
+</script>
